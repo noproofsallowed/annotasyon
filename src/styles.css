@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/solarized";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Courier Prime, monospace !important;
+  padding: 15px 30px;
+}
+
+ul {
+  font-size: 18px;
+}
+
+.module {
+  padding: 20px 0;
+}
+
+header h2 {
+  border-bottom: 1px solid rgba(46, 159, 134, 0.69);
+  padding: 3px 0 7px 10px;
+  background-color: rgba(18, 125, 104, 0.21);
+}
+
+form > section {
+  padding-top: 15px;
+}
+
+.CodeMirror {
+  height: 800px !important;
+  border-bottom: 1px solid rgba(46, 159, 134, 0.69);
+  border-left: 1px solid rgba(46, 159, 134, 0.69);
+  margin: 3px 0 7px 10px;
+}

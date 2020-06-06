@@ -1,0 +1,45 @@
+<div class="mainContainer">
+  <canvas
+    #image
+    id="imageCanvas"
+    width="600px"
+    height="800px"
+    class="canvasContainer"
+    (pan)="onPan($event)"
+    (mousemove)="onMouseMove($event)"
+    (dblclick)="select($event)"
+  ></canvas>
+  <div class="controlContainer">
+    <div class="scaleContainer">
+      <sq-input
+        controlLabel="Scale"
+        controlPlaceholder="{{ scale }}"
+        (keyup)="setScale($event)"
+      >
+      </sq-input>
+      <span>
+        <sq-button (click)="this.incScale()">+10</sq-button>
+        <sq-button (click)="this.decScale()">-10</sq-button>
+      </span>
+    </div>
+    <p>x:{{ mousex }}, y:{{ mousey }}</p>
+    <sq-checkbox
+      controlLabel="Kareler"
+      [isSelected]="true"
+      (isSelectedChange)="toggleRects($event)"
+    ></sq-checkbox>
+    <sq-checkbox
+      controlLabel="Yazı"
+      [isSelected]="true"
+      (isSelectedChange)="toggleText($event)"
+    ></sq-checkbox>
+    <sq-checkbox
+      *ngFor="
+        let tag of ['ocr_page', 'ocr_carea', 'ocr_par', 'ocr_line', 'ocrx_word']
+      "
+      [controlLabel]="tag"
+      [isSelected]="true"
+      (isSelectedChange)="toggleTag(tag, $event)"
+    ></sq-checkbox>
+  </div>
+</div>

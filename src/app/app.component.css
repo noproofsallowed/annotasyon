@@ -1,0 +1,16 @@
+.module {
+  width: 1300px;
+}
+
+.mainDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.mainHeader {
+  margin: 0px 10px 0px 20px;
+}
+
+.mainInput {
+  margin: 0px 10px 0px 20px;
+}

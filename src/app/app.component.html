@@ -1,0 +1,17 @@
+<div class="mainDiv">
+  <section id="mainModule" class="module">
+    <header class="mainHeader">
+      <h2>Annotasyon</h2>
+    </header>
+    <div class="mainInput">
+      <sq-input
+        type="file"
+        accept="image/*"
+        id="file"
+        (change)="handleFileInput($event.target.files)"
+      >
+      </sq-input>
+    </div>
+    <app-hocr [imgsrc]="imgsrc"></app-hocr>
+  </section>
+</div>
