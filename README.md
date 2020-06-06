@@ -44,11 +44,12 @@ Yuklenmesi gerekenler yuklendikten sonra setup icin(git klasorunde bulunmak gere
 1. venv olustur.
 2. venv baslat
 3. python dep'lerini yukle.
-4. angular dev env calistir.
-5. python server calistir. (yeni terminal)
-6. development, debug, test...
-7. venv durdur.
-8. kar ?!
+4. typescript dep'lerini yukle
+5. angular dev env calistir.
+6. python server calistir. (yeni terminal)
+7. development, debug, test...
+8. venv durdur.
+9. kar ?!
 
 # Yararli komutlar
 
@@ -56,6 +57,7 @@ Yuklenmesi gerekenler yuklendikten sonra setup icin(git klasorunde bulunmak gere
 - `source venv/usr/local/bin/activate`: Venv baslatma
 - `deactivate`: venv durdurma
 - `pip3 install -r requirements.txt`: Python dependencylerini yukleme
+- `npm install`: Typescript dependencyleri yukleme
 - `ng serve`: Angular development env calistirma. Adres = http://localhost:4200
 - `export FLASK_APP=server.py; flask run`: Server calistirma. Adres = http://localhost:5000
 - `tesseract wiki_farsi_1.png wiki_farsi_1 -l fas hocr get.images` ile manuel hocr uretilebiliyor.
