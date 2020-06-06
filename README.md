@@ -53,7 +53,7 @@ Yuklenmesi gerekenler yuklendikten sonra setup icin(git klasorunde bulunmak gere
 # Yararli komutlar
 
 - `virtualenv venv`: Venv olusturma
-- `source venv/bin/activate`: Venv baslatma
+- `source venv/usr/local/bin/activate`: Venv baslatma
 - `deactivate`: venv durdurma
 - `pip3 install -r requirements.txt`: Python dependencylerini yukleme
 - `ng serve`: Angular development env calistirma. Adres = http://localhost:4200
