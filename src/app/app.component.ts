@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { OcrService } from './ocr.service';
-import { Rect } from './canvas/canvas.component';
-import { ReadVarExpr } from '@angular/compiler';
+import { Component } from "@angular/core";
+import { OcrService } from "./ocr.service";
+import { Rect } from "./canvas/canvas.component";
+import { ReadVarExpr } from "@angular/compiler";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  title = 'Osmanlica Annotasyon Aleti';
-  hocr = '';
-  imgsrc = '';
+  title = "Osmanlica Annotasyon Aleti";
+  hocr = "";
+  imgsrc = "";
 
   constructor(private ocrService: OcrService) {}
 
@@ -19,7 +19,7 @@ export class AppComponent {
     const reader = new FileReader();
     reader.onload = () => {
       console.log(reader.result);
-      if (typeof reader.result === 'string') {
+      if (typeof reader.result === "string") {
         this.imgsrc = reader.result;
       }
     };
@@ -27,5 +27,14 @@ export class AppComponent {
     if (image) {
       reader.readAsDataURL(image);
     }
+    this.ocrService.getOcr(image).subscribe(
+      (res) => {
+        console.log(res);
+        this.hocr = res.hocr;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

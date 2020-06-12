@@ -4,14 +4,14 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  AfterViewInit
-} from '@angular/core';
-import { Rect } from '../canvas/canvas.component';
-import { parse } from 'querystring';
-import { FormControl } from '@angular/forms';
-import { interval } from 'rxjs';
-import { Editor } from 'codemirror';
-import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
+  AfterViewInit,
+} from "@angular/core";
+import { Rect } from "../canvas/canvas.component";
+import { parse } from "querystring";
+import { FormControl } from "@angular/forms";
+import { interval } from "rxjs";
+import { Editor } from "codemirror";
+import { CodemirrorComponent } from "@ctrl/ngx-codemirror";
 
 export interface HocrNode {
   id: string;
@@ -25,24 +25,24 @@ const bboxRe = /bbox (\d+) (\d+) (\d+) (\d+)/;
 const idRe = /id=\'([^']*)\'/;
 
 @Component({
-  selector: 'app-hocr',
-  templateUrl: './hocr.component.html',
-  styleUrls: ['./hocr.component.css']
+  selector: "app-hocr",
+  templateUrl: "./hocr.component.html",
+  styleUrls: ["./hocr.component.css"],
 })
 export class HocrComponent implements OnInit, AfterViewInit {
   @Input() imgsrc: string;
-  @ViewChild('editor', { static: true }) editorComponent: CodemirrorComponent;
-  hocrStr: string;
+  @ViewChild("editor", { static: true }) editorComponent: CodemirrorComponent;
+  @Input() hocrStr: string;
   doc: Document = null;
   root: HocrNode[] = [];
   focus: Rect = null;
   idMap: { [key: string]: Rect } = {};
-  hocrComp = new FormControl('', { updateOn: 'change' });
+  hocrComp = new FormControl("", { updateOn: "change" });
   cmconfig = {
     lineNumbers: true,
-    theme: 'solarized light',
-    mode: 'xml',
-    lineWrapping: true
+    theme: "solarized light",
+    mode: "xml",
+    lineWrapping: true,
   };
   domparser = new DOMParser();
   rects = [];
@@ -69,19 +69,19 @@ export class HocrComponent implements OnInit, AfterViewInit {
     const id = el.id;
     const typeset = el.classList[0];
 
-    const propStr = el.getAttribute('title');
+    const propStr = el.getAttribute("title");
     const match = propStr.match(bboxRe);
     const x0 = Number(match[1]);
     const x1 = Number(match[3]);
     const y0 = Number(match[2]);
     const y1 = Number(match[4]);
     const bbox = {
-      text: '',
+      text: "",
       x: x0,
       y: y0,
       tag: typeset,
       width: x1 - x0,
-      height: y1 - y0
+      height: y1 - y0,
     };
 
     this.idMap[id] = bbox;
@@ -101,7 +101,7 @@ export class HocrComponent implements OnInit, AfterViewInit {
       typeset,
       bbox,
       props: {},
-      children
+      children,
     };
   }
 
@@ -114,8 +114,8 @@ export class HocrComponent implements OnInit, AfterViewInit {
   }
 
   parse() {
-    this.doc = this.domparser.parseFromString(this.hocrStr, 'text/html');
-    const children = this.doc.getElementsByClassName('ocr_page');
+    this.doc = this.domparser.parseFromString(this.hocrStr, "text/html");
+    const children = this.doc.getElementsByClassName("ocr_page");
     this.rects = [];
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < children.length; i++) {
@@ -135,16 +135,16 @@ export class HocrComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-    const pom = document.createElement('a');
+    const pom = document.createElement("a");
     pom.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' + encodeURIComponent(this.hocrStr)
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(this.hocrStr)
     );
-    pom.setAttribute('download', 'output.hocr');
+    pom.setAttribute("download", "output.hocr");
 
     if (document.createEvent) {
-      const event = document.createEvent('MouseEvents');
-      event.initEvent('click', true, true);
+      const event = document.createEvent("MouseEvents");
+      event.initEvent("click", true, true);
       pom.dispatchEvent(event);
     } else {
       pom.click();
@@ -153,12 +153,12 @@ export class HocrComponent implements OnInit, AfterViewInit {
 
   cursorChanged(e: Editor) {
     this.parse();
-    if (this.hocrStr === '' || this.hocrStr === undefined) {
+    if (this.hocrStr === "" || this.hocrStr === undefined) {
       return;
     }
     const index = e.indexFromPos(e.getCursor());
     const st = this.hocrStr.substr(0, index);
-    const re = new RegExp(idRe, 'g');
+    const re = new RegExp(idRe, "g");
     let match: string[];
     let lastMatch: string[];
     // tslint:disable-next-line: no-conditional-assignment
@@ -173,7 +173,7 @@ export class HocrComponent implements OnInit, AfterViewInit {
       return;
     }
     this.focus = this.idMap[lastMatch[1]];
-    this.focus.tag = 'focus';
+    this.focus.tag = "focus";
     this.rects.push(this.focus);
   }
 

@@ -4,14 +4,15 @@
       <h2>Annotasyon</h2>
     </header>
     <div class="mainInput">
+      <!-- <form method=post enctype=multipart/form-data> -->
       <sq-input
         type="file"
         accept="image/*"
         id="file"
         (change)="handleFileInput($event.target.files)"
-      >
-      </sq-input>
+      ></sq-input>
+      <!-- </form> -->
     </div>
-    <app-hocr [imgsrc]="imgsrc"></app-hocr>
+    <app-hocr [imgsrc]="imgsrc" [hocrStr]="hocr"></app-hocr>
   </section>
 </div>
