@@ -26,7 +26,7 @@ def imagetohocr():
         fp = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(fp)
         hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(fp), extension='hocr', lang='fas')
-        return {'hocr': str(hocr_str)}
+        return {'hocr': str(hocr_str, encoding='utf-8')}
     if request.method == 'GET':
         return '''
         <!doctype html>
