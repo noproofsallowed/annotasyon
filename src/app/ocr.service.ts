@@ -13,7 +13,7 @@ export class OcrService {
   getOcr(image: File): Observable<any> {
     const formData = new FormData();
     formData.append("fileName", image.name);
-    formData.append("fileData", image, "olucakbuins");
+    formData.append("fileData", image, image.name);
 
     return this.http.post(this.URL, formData);
   }
