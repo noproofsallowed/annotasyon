@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class OcrService {
-  URL = "http://localhost:5000/imagetohocr";
+  URL = "http://localhost:5000/converttohocr";
 
   constructor(private http: HttpClient) {}
 

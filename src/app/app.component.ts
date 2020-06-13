@@ -30,7 +30,7 @@ export class AppComponent {
     this.ocrService.getOcr(image).subscribe(
       (res) => {
         console.log(res);
-        this.hocr = res.hocr;
+        this.hocr = res.data[0].hocr;
       },
       (err) => {
         console.log(err);
