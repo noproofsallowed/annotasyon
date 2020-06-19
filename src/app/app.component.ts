@@ -31,6 +31,9 @@ export class AppComponent {
       (res) => {
         console.log(res);
         this.hocr = res.data[0].hocr;
+        if (res.data[0].data_url) {
+          this.imgsrc = res.data[0].data_url;
+        }
       },
       (err) => {
         console.log(err);
