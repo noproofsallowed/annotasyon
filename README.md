@@ -61,6 +61,11 @@ Yuklenmesi gerekenler yuklendikten sonra setup icin(git klasorunde bulunmak gere
 -   `ng serve`: Angular development env calistirma. Adres = http://localhost:4200
 -   `export FLASK_APP=server.py; flask run`: Server calistirma. Adres = http://localhost:5000
 -   `tesseract wiki_farsi_1.png wiki_farsi_1 -l fas hocr get.images` ile manuel hocr uretilebiliyor.
+-   https://solarianprogrammer.com/2019/10/21/install-opencv-python-macos/
+    Installing Opencv (4.1.2) on Virtual Environment (macOS Catalina)
+-   `pip3 install -r requirements.txt`: Library Requirements
+-   `merge_requirements requirements.txt new_req.txt` Merging requirements.txt documents (example)
+-   `brew install tesseract-lang` Installing Tesseract Languages
 
 # \_anno.json format
 
