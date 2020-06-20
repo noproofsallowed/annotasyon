@@ -42,20 +42,20 @@ def imagetohocr():
         if filename[-3:] == 'pdf':
             print('napcam ki ben')
             pages = convert_from_path(fp, 500)
-            page = pages[0]
-            pagefp = os.path.join(app.config['UPLOAD_FOLDER'], 'deneme1.jpg')
-            page.save(pagefp, 'JPEG')
-            hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(pagefp), extension='hocr')
-            return {
-                'data': [
-                    {
-                        'data_url': img_to_data(pagefp),
-                        'hocr': str(hocr_str, encoding='utf-8')
-                    }
-                ],
+            res = {
+                'data': [],
                 'name': file.filename,
-                'id': 'dummy_id',
+                'id': 'dummy_id'
             }
+            for page in pages:
+                pagefp = os.path.join(app.config['UPLOAD_FOLDER'], 'deneme1.jpg')
+                page.save(pagefp, 'JPEG')
+                hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(pagefp), extension='hocr')
+                res['data'].append({
+                    'data_url': img_to_data(pagefp),
+                    'hocr': str(hocr_str, encoding='utf-8')
+                })
+            return res
         else:
             ### FIX IMAGE GOKCE PLS (fp image path)
             hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(fp), extension='hocr', lang='fas')

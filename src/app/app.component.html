@@ -1,18 +1,31 @@
 <div class="mainDiv">
   <section id="mainModule" class="module">
     <header class="mainHeader">
-      <h2>Annotasyon</h2>
+      <span class="title">Annotasyon</span>
+      <span class="rightside">
+        <span class="paginator">
+          <sq-input
+            controlLabel="SAYFA"
+            controlPlaceholder="0"
+            [disabled]="numPage <= 0"
+            type="number"
+            min="0"
+            class="sayfa"
+            [formControl]="curPage"
+          ></sq-input>
+        </span>
+        <span>
+          <sq-button (click)="uploader.click()">YUKLE</sq-button>
+          <input
+            hidden
+            type="file"
+            #uploader
+            id="file"
+            (change)="handleFileInput($event.target.files)"
+          />
+        </span>
+      </span>
     </header>
-    <div class="mainInput">
-      <!-- <form method=post enctype=multipart/form-data> -->
-      <sq-input
-        type="file"
-        accept="image/*"
-        id="file"
-        (change)="handleFileInput($event.target.files)"
-      ></sq-input>
-      <!-- </form> -->
-    </div>
     <app-hocr [imgsrc]="imgsrc" [hocrStr]="hocr"></app-hocr>
   </section>
 </div>

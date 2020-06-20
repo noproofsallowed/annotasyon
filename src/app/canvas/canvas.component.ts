@@ -6,19 +6,19 @@ import {
   Input,
   AfterViewInit,
   Output,
-  EventEmitter
-} from '@angular/core';
-import { MouseInput } from 'hammerjs';
-import { interval } from 'rxjs';
+  EventEmitter,
+} from "@angular/core";
+import { MouseInput } from "hammerjs";
+import { interval } from "rxjs";
 
 const WIDTH = 600;
 const HEIGHT = 800;
 const TAG_COLORS = {
-  ocr_page: 'black',
-  ocr_carea: 'gray',
-  ocr_par: 'darkgreen',
-  ocr_line: 'green',
-  ocrx_word: 'lime'
+  ocr_page: "black",
+  ocr_carea: "gray",
+  ocr_par: "darkgreen",
+  ocr_line: "green",
+  ocrx_word: "lime",
 };
 
 export interface Rect {
@@ -31,13 +31,13 @@ export interface Rect {
 }
 
 @Component({
-  selector: 'app-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  selector: "app-canvas",
+  templateUrl: "./canvas.component.html",
+  styleUrls: ["./canvas.component.scss"],
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
   private image = new Image();
-  @ViewChild('image') canvasElement: ElementRef;
+  @ViewChild("image") canvasElement: ElementRef;
   public canvas: HTMLCanvasElement;
   public context: CanvasRenderingContext2D;
   public scale = 1.0;
@@ -52,11 +52,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   public showText = true;
   public showRect = true;
   public tagVisibility = new Map([
-    ['ocr_page', true],
-    ['ocr_carea', true],
-    ['ocr_par', true],
-    ['ocr_line', true],
-    ['ocrx_word', true]
+    ["ocr_page", true],
+    ["ocr_carea", true],
+    ["ocr_par", true],
+    ["ocr_line", true],
+    ["ocrx_word", true],
   ]);
   @Output() selectedChange = new EventEmitter<Rect>();
   @Input() public rects: Rect[];
@@ -67,7 +67,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.canvas = this.canvasElement.nativeElement as HTMLCanvasElement;
-    this.context = this.canvas.getContext('2d');
+    this.context = this.canvas.getContext("2d");
 
     this.image.onload = () => {
       this.scale = this.fitScale(
@@ -85,9 +85,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.anchory = (HEIGHT - this.height) / 2;
       }
       interval(20).subscribe(this.loop.bind(this));
-      console.log('width=' + this.width + ', height=' + this.height);
+      console.log("width=" + this.width + ", height=" + this.height);
       console.log(
-        'image.width=' + this.image.width + ',image.height=' + this.image.height
+        "image.width=" + this.image.width + ",image.height=" + this.image.height
       );
     };
   }
@@ -119,22 +119,22 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.width,
       this.height
     );
-    this.context.font = '14px Courier Prime, monospace';
+    this.context.font = "14px Courier Prime, monospace";
     for (const rect of this.rects) {
       const rectx = rect.x * scale + offsetx;
       const recty = rect.y * scale + offsety;
       const rectwidth = rect.width * scale;
       const rectheight = rect.height * scale;
-      if (rect.tag === 'focus') {
-        this.context.fillStyle = 'rgba(0, 200, 0, 0.4)';
+      if (rect.tag === "focus") {
+        this.context.fillStyle = "rgba(0, 200, 0, 0.4)";
         this.context.fillRect(rectx, recty, rectwidth, rectheight);
-        this.context.fillStyle = 'black';
+        this.context.fillStyle = "black";
       }
       if (this.showRect && this.tagVisibility.get(rect.tag)) {
         if (TAG_COLORS.hasOwnProperty(rect.tag)) {
           this.context.strokeStyle = TAG_COLORS[rect.tag];
         } else {
-          this.context.strokeStyle = 'silver';
+          this.context.strokeStyle = "silver";
         }
         this.context.strokeRect(rectx, recty, rectwidth, rectheight);
       }

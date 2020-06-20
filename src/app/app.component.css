@@ -1,16 +1,43 @@
 .module {
-  width: 1300px;
+    width: 1300px;
 }
 
 .mainDiv {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .mainHeader {
-  margin: 0px 10px 0px 20px;
+    margin: 0px 10px 0px 20px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(46, 159, 134, 0.69);
+    padding: 7px 10px 7px 10px;
+    background-color: rgba(18, 125, 104, 0.21);
 }
 
 .mainInput {
-  margin: 0px 10px 0px 20px;
+    margin: 0px 10px 0px 20px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.paginator {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    margin-right: 5px;
+}
+
+.sayfa {
+    width: 150px;
+    margin-bottom: -20px;
+}
+
+.rightside {
+    display: flex;
 }
