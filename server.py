@@ -57,6 +57,7 @@ def imagetohocr():
                 'id': 'dummy_id',
             }
         else:
+            ### FIX IMAGE GOKCE PLS (fp image path)
             hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(fp), extension='hocr', lang='fas')
             return {
                 'data': [
