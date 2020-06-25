@@ -50,7 +50,7 @@ def imagetohocr():
             for page in pages:
                 pagefp = os.path.join(app.config['UPLOAD_FOLDER'], 'deneme1.jpg')
                 page.save(pagefp, 'JPEG')
-                hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(pagefp), extension='hocr')
+                hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(pagefp), extension='hocr', lang='fas')
                 res['data'].append({
                     'data_url': img_to_data(pagefp),
                     'hocr': str(hocr_str, encoding='utf-8')
