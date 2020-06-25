@@ -21,6 +21,12 @@ Ana ozellikler:
 -   Tree View, web sayfalari
 -   Auto folded editor and good folding support
 
+# Image Preprocess
+
+Tesseract siyah beyaz olmayan ortamlarda baya kotu calisiyor.
+
+-   https://docs.opencv.org/3.4.0/d7/d4d/tutorial_py_thresholding.html => guzel ornek
+
 # Development Environment
 
 Yuklenmesi Gereken Toollar:
