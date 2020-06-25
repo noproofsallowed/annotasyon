@@ -21,7 +21,7 @@ def remove_noise(image):
 
 ################################################################
 # Karsilastirmak icin hazir kod
-# 
+#
 img = data.page()
 img_cv = cv2.imread('img.jpg')
 # Here, we specify a radius for local thresholding algorithms.
@@ -34,8 +34,8 @@ print("amk")
 # #Input
 
 img_orig = Image.open("img.png")
-arr_orig = asarray(img_orig) 
-gray_sci = np.mean(arr_orig, axis=2) # Scikit grayscale aslinda degil 
+arr_orig = asarray(img_orig)
+gray_sci = np.mean(arr_orig, axis=2) # Scikit grayscale aslinda degil
 gray_cv = get_grayscale(img_orig) # opencv grayscale
 # Rescaling
 
@@ -109,4 +109,3 @@ plt.figure()
 im.show()
 
 
-    
