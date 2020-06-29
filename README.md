@@ -15,8 +15,10 @@ Ana ozellikler:
 # Yapilacaklar
 
 -   TODO olan featurelar
--   PDF support
--   Multi page support
+-   PDF support [BITTI]
+-   Multi page support [BITTI]
+-   UI Revamp
+    -   Animation on loading etc.
 -   Latin mapping
 -   Tree View, web sayfalari
 -   Auto folded editor and good folding support
