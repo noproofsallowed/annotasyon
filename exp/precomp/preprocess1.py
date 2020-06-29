@@ -32,17 +32,17 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 # %%
 # noise removal
 def remove_noise(image):
-    return cv2.medianBlur(image,5)
+    return cv2.medianBlur(image,3)
 
 denoised = cv2.medianBlur(gray,5)
 
 
-# %%
-#thresholding
-def thresholding(image):
-    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+# # %%
+# #thresholding
+# def thresholding(image):
+#     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-thresholded = cv2.threshold(denoised, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+# thresholded = cv2.threshold(denoised, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
 
 # %%

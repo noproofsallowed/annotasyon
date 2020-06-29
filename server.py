@@ -8,6 +8,7 @@ import mimetypes
 import sys
 from pdf2image import convert_from_path
 from werkzeug.utils import secure_filename
+import cv2
 
 UPLOAD_FOLDER = './upload'
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
@@ -24,6 +25,19 @@ def img_to_data(path):
         data = fp.read()
         data64 = b''.join(base64.encodestring(data).splitlines())
         return u'data:%s;base64,%s' % (mime, str(data64, encoding='utf-8'))
+
+def binarisation(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError
+    head, tail = os.path.split(path)
+    new_path = os.path.join(head, "binary_" + tail)
+    img = cv2.imread(path, 0)
+    denoised = cv2.medianBlur(img,3)
+    th = cv2.adaptiveThreshold(denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
+        cv2.THRESH_BINARY, 11, 7)
+    cv2.imwrite(new_path, th)
+    print(new_path)
+    return new_path
 
 @app.route('/converttohocr', methods=['POST', 'GET'])
 def imagetohocr():
@@ -58,10 +72,12 @@ def imagetohocr():
             return res
         else:
             ### FIX IMAGE GOKCE PLS (fp image path)
-            hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(fp), extension='hocr', lang='fas')
+            np = binarisation(fp)
+            hocr_str = pytesseract.image_to_pdf_or_hocr(Image.open(np), extension='hocr', lang='fas')
             return {
                 'data': [
                     {
+                        'data_url': img_to_data(np),
                         'hocr': str(hocr_str, encoding='utf-8')
                     }
                 ],

@@ -5,7 +5,8 @@ import cv2
 
 def testcv2():
     img = cv2.imread('erzurumkesit.png', 0)
-    th = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
+    denoised = cv2.medianBlur(img,3)
+    th = cv2.adaptiveThreshold(denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
         cv2.THRESH_BINARY, 11, 7)
     cv2.imwrite('test_erzurum2.png', th)
 
