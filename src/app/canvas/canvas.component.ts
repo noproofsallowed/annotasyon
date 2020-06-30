@@ -139,12 +139,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.context.strokeRect(rectx, recty, rectwidth, rectheight);
       }
       if (this.showText) {
-        this.context.fillText(
-          rect.text,
-          rectx,
-          recty + rectheight - 3,
-          rectwidth
-        );
+        this.context.font = String(rectheight) + "px serif";
+        this.context.textBaseline = "top";
+        this.context.fillText(rect.text, rectx, recty, rectwidth);
       }
     }
   }
