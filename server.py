@@ -6,6 +6,7 @@ from flask_cors import CORS
 import base64
 import mimetypes
 import sys
+import tempfile
 from pdf2image import convert_from_path
 from werkzeug.utils import secure_filename
 import cv2
@@ -32,60 +33,51 @@ def toBinaryImage(path):
     if not os.path.exists(path):
         raise FileNotFoundError
     head, tail = os.path.split(path)
-    new_path = os.path.join(head, "binary_" + tail)
+    name, _ = os.path.splitext(tail)
+    new_path = os.path.join(head, "binary_" + name + '.jpg')
     img = cv2.imread(path, 0)
     denoised = cv2.medianBlur(img, 3)
     th = cv2.adaptiveThreshold(
         denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 7
     )
     cv2.imwrite(new_path, th)
-    print(new_path)
     return new_path
+
+
+def _getpageobj(fp):
+    np = toBinaryImage(fp)
+    hocr_str = pytesseract.image_to_pdf_or_hocr(
+        Image.open(np), extension="hocr", lang="fas"
+    )
+    return {"data_url": img_to_data(np), "hocr": str(hocr_str, encoding="utf-8")}
 
 
 @app.route("/converttohocr", methods=["POST", "GET"])
 def imagetohocr():
     if request.method == "POST":
-        print(request.headers)
-        print(request.files)
-        print(request.form)
         if "fileData" not in request.files:
             return "hatafile"
         file = request.files["fileData"]
         if file.filename == "":
             return "bos filename"
-        filename = secure_filename(file.filename)
-        fp = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(fp)
-        if filename[-3:] == "pdf":
-            print("napcam ki ben")
-            pages = convert_from_path(fp, 500)
-            res = {"data": [], "name": file.filename, "id": "dummy_id"}
-            for page in pages:
-                pagefp = os.path.join(app.config["UPLOAD_FOLDER"], "deneme1.jpg")
-                page.save(pagefp, "JPEG")
-                hocr_str = pytesseract.image_to_pdf_or_hocr(
-                    Image.open(pagefp), extension="hocr", lang="fas"
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            filename = secure_filename(file.filename)
+            fp = os.path.join(tmpdirname, filename)
+            file.save(fp)
+            if filename[-3:] == "pdf":
+                pages = convert_from_path(
+                    fp, 500, output_folder=tmpdirname, paths_only=True
                 )
-                res["data"].append(
-                    {
-                        "data_url": img_to_data(pagefp),
-                        "hocr": str(hocr_str, encoding="utf-8"),
-                    }
-                )
-            return res
-        else:
-            np = toBinaryImage(fp)
-            hocr_str = pytesseract.image_to_pdf_or_hocr(
-                Image.open(np), extension="hocr", lang="fas"
-            )
-            return {
-                "data": [
-                    {"data_url": img_to_data(np), "hocr": str(hocr_str, encoding="utf-8")}
-                ],
-                "name": file.filename,
-                "id": "dummy_id",
-            }
+                res = {"data": [], "name": file.filename, "id": "dummy_id"}
+                for pagefp in pages:
+                    res["data"].append(_getpageobj(pagefp))
+                return res
+            else:
+                return {
+                    "data": [_getpageobj(fp)],
+                    "name": file.filename,
+                    "id": "dummy_id",
+                }
     if request.method == "GET":
         return """
         <!doctype html>
