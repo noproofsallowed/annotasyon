@@ -40,7 +40,7 @@ export class HocrComponent implements OnInit, AfterViewInit {
   hocrComp = new FormControl("", { updateOn: "change" });
   cmconfig = {
     lineNumbers: true,
-    theme: "solarized light",
+    theme: "eclipse",
     mode: "xml",
     lineWrapping: true,
   };
