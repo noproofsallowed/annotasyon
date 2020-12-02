@@ -19,7 +19,6 @@ const TAG_COLORS = {
   ocr_par: "darkgreen",
   ocr_line: "green",
   ocrx_word: "lime",
-  focus: "black",
 };
 
 export interface Rect {
@@ -120,18 +119,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.width,
       this.height
     );
+    this.context.font = "14px Courier Prime, monospace";
     for (const rect of this.rects) {
       const rectx = rect.x * scale + offsetx;
       const recty = rect.y * scale + offsety;
       const rectwidth = rect.width * scale;
       const rectheight = rect.height * scale;
       if (rect.tag === "focus") {
-        this.context.fillStyle = "rgba(0, 200, 0, 0.7)";
-        this.context.fillRect(rectx, recty + rectheight, rectwidth, rectheight);
+        this.context.fillStyle = "rgba(0, 200, 0, 0.4)";
+        this.context.fillRect(rectx, recty, rectwidth, rectheight);
         this.context.fillStyle = "black";
-        this.context.font = String(rectheight) + "px serif";
-        this.context.textBaseline = "top";
-        this.context.fillText(rect.text, rectx, recty + rectheight, rectwidth);
       }
       if (this.showRect && this.tagVisibility.get(rect.tag)) {
         if (TAG_COLORS.hasOwnProperty(rect.tag)) {
@@ -140,6 +137,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
           this.context.strokeStyle = "silver";
         }
         this.context.strokeRect(rectx, recty, rectwidth, rectheight);
+      }
+      if (this.showText) {
+        this.context.font = String(rectheight) + "px serif";
+        this.context.textBaseline = "top";
+        this.context.fillText(rect.text, rectx, recty, rectwidth);
       }
     }
   }
