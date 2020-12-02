@@ -87,3 +87,22 @@ Yuklenmesi gerekenler yuklendikten sonra setup icin(git klasorunde bulunmak gere
     'name': str,
     'id': str,
     }
+
+# Project Description
+
+Target Client: Ottoman Turkish to Latin Turkish Translators
+Supported Language: Ottoman Turkish
+Annotasyon tool processes the pdf or image of handwriting using tesseract-ocr.It provides the translated output on a web application to the user.
+
+# Features
+
+- User Login
+- Search Engine – search through documents translated by others
+- Dashboard
+- Document Management System
+
+# Technology Stack
+
+- Language : Python and JavaScript
+- Framework : Flask and Vue.js
+- Other libraries or components: tesseract-ocr, opencv
